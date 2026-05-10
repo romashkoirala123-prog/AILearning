@@ -13,7 +13,6 @@ This project aims to solve these issues by integrating AI-powered assistance int
 
 ## Main Features
 
-
 - AI-powered question answering
 - Personalized learning assistance
 - Interactive study support
@@ -24,16 +23,15 @@ This project aims to solve these issues by integrating AI-powered assistance int
 
 ## Purpose
 
-
 The main objective of this project is to enhance learning accessibility and improve the overall educational experience through AI-driven technologies.
+
 
 ---
 
 ## Technologies Used
 
-
-- Frontend: React / HTML / CSS
-- Backend: Node.js / Express / Spring
-- Database: MongoDB / PostgreSQL
-- Authentication: Oauth 2.0
-- AI Integration: Llama / Gemma
+- Frontend: <a href="https://github.com/facebook/react">React</a> / <a href="https://html.com/">HTML</a> / <a href="https://web.dev/css">CSS</a>
+- Backend: <a href="https://github.com/nodejs/node">Node.js</a>/ <a href="https://github.com/expressjs/expressjs.com">Express</a> / <a href="https://github.com/spring-projects/spring-boot">Spring</a>
+- Database: <a href="https://github.com/mongodb/mongo">MongoDB</a> / <a href="https://github.com/postgres/postgres">PostgreSQL</a>
+- Authentication: <a href="https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps">Oauth 2.0</a>
+- AI Integration: <a href="https://github.com/meta-llama/llama3">Llama3</a> / <a href="https://github.com/google-deepmind/gemma">Gemma</a>
