@@ -27,7 +27,7 @@ The main objective of this project is to enhance learning accessibility and impr
 
 
 
-NOTE: While the application talks highly about using AI/LLMs to help in the learning process, the project heavily depends on filtering of readily available study material to choose topics and facilitate answers to queries which are made more comprehensive through AI-chatbots for language processing only.
+NOTE: While the application talks highly about using AI/LLMs to help in the learning process, the project heavily depends on filtering of readily available study material to choose topics and facilitate answers to queries which are made more comprehensive through AI-chatbots which are used for language processing only.
 
 ---
 
