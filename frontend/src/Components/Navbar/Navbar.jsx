@@ -1,16 +1,18 @@
 import './Navbar.css'
+import { useNavigate } from "react-router";
 
 const Navbar = () => {
 
   const isLoggedIn = false;  
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="nav-body">
         <div className="nav-logo"><img src="../src/assets/nav-logo.png" /></div>
         <div className="nav-links">
-          <a>Chat</a>
-          <a>Quiz</a>
+          <a href="/">Chat</a>
+          <a href="/quiz">Quiz</a>
         </div> 
         {isLoggedIn ? (
         <div className="nav-profile">
@@ -22,7 +24,7 @@ const Navbar = () => {
         </div>
       ) : (
         <div className="nav-login">
-          <button>Login</button>
+          <button onClick={() => navigate("/login")}>Login</button>
         </div>
       )}      </div>
     </>
