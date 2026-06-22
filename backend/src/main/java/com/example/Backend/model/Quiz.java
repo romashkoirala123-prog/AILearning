@@ -16,7 +16,7 @@ public class Quiz {
     @DocumentReference(lazy = true)
     private String documentId;
     private String title;
-    private List<questions> questions;
+    private List<questions> question;
     private String difficulty;
 
 }
