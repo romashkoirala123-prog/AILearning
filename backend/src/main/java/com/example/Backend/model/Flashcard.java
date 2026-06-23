@@ -10,5 +10,4 @@ public class Flashcard {
     private String id;
     private String documentId;
 
-
 }
