@@ -11,6 +11,5 @@ import java.util.List;
 public interface Documentrepository extends MongoRepository<Doc,String> {
     List<Doc> findByUserId(String id);
     List<Doc> findByUserNameAndUserId(String userName,String id);
-    List<Doc> findByUserIdAndStatus(String userId, Doc.DocumentStatus status);
     boolean existsByUserIdAndUserId(String userId,String id);
 }
