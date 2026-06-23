@@ -14,7 +14,5 @@ public class QuizService
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Quiz findById(String id,String documentId)
-    {}
 
 }
