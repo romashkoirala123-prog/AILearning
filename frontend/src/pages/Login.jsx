@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../style/Login.css";
 
 const Login = () => {
@@ -12,12 +13,16 @@ const Login = () => {
             type="email"
             placeholder="Email Address"
             className="login-input"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           <input
             type="password"
             placeholder="Password"
             className="login-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button type="submit" className="login-btn">
