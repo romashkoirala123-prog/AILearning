@@ -37,6 +37,7 @@ public class ChatHistory {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    @CompoundIndex(name = "userId_documentId_idx", def = "{'userId': 1, 'documentId': 1}")
     public static class Message {
         private Role role;
         private String content;
