@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface Documentrepository extends MongoRepository<document,String> {
+public interface DocumentRepository extends MongoRepository<document,String> {
     List<document> findByUserId(String id);
     List<document> findByUserNameAndUserId(String userName, String id);
     boolean existsByUserIdAndUserId(String userId,String id);

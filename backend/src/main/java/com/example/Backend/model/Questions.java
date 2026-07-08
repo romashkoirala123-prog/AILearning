@@ -7,7 +7,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class questions {
+public class Questions {
     @NotBlank
     private String question;
     @NotBlank

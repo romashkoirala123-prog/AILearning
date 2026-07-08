@@ -27,7 +27,7 @@ public class Quiz {
     @NotBlank
     private String title;
     @Builder.Default
-    private List<questions> question=new ArrayList<>();
+    private List<Questions> question=new ArrayList<>();
     @Builder.Default
     private List<answer> answers = new ArrayList<>();
     @Builder.Default

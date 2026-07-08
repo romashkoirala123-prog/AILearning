@@ -35,11 +35,10 @@ public class Securityconfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         return httpSecurity
-                .formLogin(Customizer.withDefaults())
+                //.formLogin(Customizer.withDefaults())
                 .formLogin(httpForm->httpForm.defaultSuccessUrl("/home"))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(registry -> {
-                    // This correctly allows Postman to hit these endpoints without a token
                     registry.requestMatchers("/register").permitAll();
                     registry.anyRequest().authenticated();
                 })
