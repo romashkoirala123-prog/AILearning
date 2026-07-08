@@ -3,6 +3,7 @@ package com.example.Backend.services;
 import com.example.Backend.model.SUser;
 import com.example.Backend.repository.userRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Userservice implements UserDetailsService {
-    @Autowired
-    private userRepository userRepo;
 
+    private final userRepository userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

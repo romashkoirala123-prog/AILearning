@@ -4,6 +4,7 @@ import com.example.Backend.model.Answer;
 import com.example.Backend.model.Quiz;
 import com.example.Backend.model.Questions;
 import com.example.Backend.repository.QuizRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -15,12 +16,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class QuizService
 {
-    @Autowired
-    private QuizRepository quizRepository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+
+    private final QuizRepository quizRepository;
+
+    private final MongoTemplate mongoTemplate;
     //create
     public Quiz createQuiz(String userId, String documentId,
                            String title, List<Questions> question) {
@@ -28,7 +30,7 @@ public class QuizService
                 .userId(userId)
                 .documentId(documentId)
                 .title(title)
-                .Questions(qestion)
+                .questions(question)
                 .totalQuestions(question.size())
                 .build();
         return quizRepository.save(quiz);

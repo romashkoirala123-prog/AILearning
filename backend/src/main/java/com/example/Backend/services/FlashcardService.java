@@ -3,6 +3,7 @@ package com.example.Backend.services;
 import com.example.Backend.model.Flashcard;
 import com.example.Backend.repository.FlashcardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class FlashcardService {
 
     private final FlashcardRepository flashcardRepository;
+    private final MongoTemplate mongoTemplate;
 
     public Flashcard createFlashcard(String userId, String documentId, List<Flashcard.Card> cards) {
         Flashcard flashcard = Flashcard.builder()

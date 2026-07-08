@@ -40,13 +40,13 @@ public class ChatHistoryService {
         mongoTemplate.updateFirst(query, update, ChatHistory.class);
     }
 
-    // Append multiple messages at once
+    // Append multiple message
     public void appendMessages(String userId, String documentId, List<ChatHistory.Message> messages) {
         Query query = new Query(
                 Criteria.where("userId").is(userId)
                         .and("documentId").is(documentId)
         );
-        Update update = new Update().push("messages", messages.toArray());
+        Update update = new Update().push("messages").each(messages);
         mongoTemplate.updateFirst(query, update, ChatHistory.class);
     }
 
@@ -63,7 +63,7 @@ public class ChatHistoryService {
         chatHistoryRepository.deleteByUserIdAndDocumentId(userId, documentId);
     }
 
-    // Get or create pattern (common for chat flows)
+    // Get pattern
     public ChatHistory getOrCreate(String userId, String documentId) {
         return chatHistoryRepository.findByUserIdAndDocumentId(userId, documentId)
                 .orElseGet(() -> createChatHistory(userId, documentId));
