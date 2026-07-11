@@ -18,7 +18,7 @@ public interface ChatHistoryRepository extends MongoRepository<ChatHistory, Stri
 
     void deleteByUserIdAndDocumentId(String userId, String documentId);
 
-    // Fetch only messages field (projection)
+    // Fetch only messages field
     @Query(value = "{'userId': ?0, 'documentId': ?1}", fields = "{'messages': 1}")
     Optional<ChatHistory> findMessagesByUserIdAndDocumentId(String userId, String documentId);
 }

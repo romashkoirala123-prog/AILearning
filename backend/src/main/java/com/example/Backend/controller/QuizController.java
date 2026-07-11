@@ -1,4 +1,4 @@
 package com.example.Backend.controller;
 
-public class documentController {
+public class QuizController {
 }
