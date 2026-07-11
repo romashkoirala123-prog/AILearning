@@ -66,7 +66,6 @@ public class flashcardController {
             if (cardIndex < 0 || cardIndex >= set.getCards().size())
                 return bad400("cardIndex out of range");
 
-            // Atomic update — reviewCount++ and lastReviewed = now
             Query query = new Query(
                     Criteria.where("userId").is(uid).and("documentId").is(documentId));
             Update update = new Update()
@@ -74,7 +73,6 @@ public class flashcardController {
                     .set("cards." + cardIndex + ".lastReviewed", LocalDateTime.now());
             mongoTemplate.updateFirst(query, update, Flashcard.class);
 
-            // Reload and return the updated set
             Flashcard updated = flashcardService.getByUserAndDocument(uid, documentId);
             return ResponseEntity.ok(apiResponse.ok(updated, "Card reviewed successfully"));
         } catch (RuntimeException e) {
