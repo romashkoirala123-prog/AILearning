@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../style/Register.css";
 
-function Register() {
+function RegisterPage() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -70,4 +70,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default RegisterPage;

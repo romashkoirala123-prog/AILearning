@@ -1,24 +1,53 @@
-import { Route, Routes } from "react-router";
-import HomePage from "./pages/HomePage";
-import Profile from "./pages/Profile";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Quiz from "./pages/Quiz";
-import Navbar from "./Components/Navbar/Navbar";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router";
+import LoginPage from "./pages/Auth/LoginPage";
+import RegisterPage from "./pages/Auth/RegisterPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import ProtectedRoute from "./Components/auth/ProtectedRoute";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import DocumentListPage from "./pages/Document/DocumentListPage";
+import DocumentDetailPage from "./pages/Document/DocumentDetailPage";
+import FlashcardsListPage from "./pages/Flashcards/FlashcardsListPage";
+import FlashcardPage from "./pages/Flashcards/FlashcardPage";
+import QuizTakePage from "./pages/Quiz/QuizTakePage";
+import QuizResultPage from "./pages/Quiz/QuizResultPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
+
 
 const App = () => {
-  return (
-    <div>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<HomePage />} /> 
-        <Route path="/profile" element={<Profile />} /> 
-        <Route path="/quiz" element={<Quiz />} /> 
-        <Route path="/login" element={<Login />} /> 
-        <Route path="/register" element={<Register />} /> 
-      </Routes>
+  const isAuthenticated = false
+  const loading = false
   
-    </div>
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <p>Loading...</p>
+      </div>
+    )
+  }
+  return (
+      <Router>
+        <Routes>
+          <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}/> 
+          <Route path="/login" element={<LoginPage />} /> 
+          <Route path="/register" element={<RegisterPage />} /> 
+          
+            {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<DashboardPage />}/>
+            <Route path="/documents" element={<DocumentListPage />}/>
+            <Route path="/documnets/:id" element={<DocumentDetailPage />}/>
+            <Route path="/flashcards" element={<FlashcardsListPage />}/>
+            <Route path="/documents/:id/flashcards" element={<FlashcardPage />}/>
+            <Route path="/quizzes/:quizId" element={<QuizTakePage />}/>
+            <Route path="/quizzes/:quizId/results" element={<QuizResultPage />}/>
+            <Route path="/profile" element={<ProfilePage />}/>
+          </Route>
+
+
+          <Route path="*" element={<NotFoundPage />}/>
+        </Routes>
+      </Router>
+  
   ); 
 }
 
