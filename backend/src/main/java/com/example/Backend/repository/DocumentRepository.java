@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface DocumentRepository extends MongoRepository<Document,String> {
-    List<Document> findByUserId(String id);
-    List<Document> findByUserNameAndUserId(String userName, String id);
-    boolean existsByUserIdAndUserId(String userId,String id);
+    List<Document> findByUserId(String userId);
+    List<Document> findByIdAndUserId(String userId, String id);
+    List<Document> findByDocumentId(String documentId);
+    boolean existsByUserIdAndDocumentId(String userId, String documentId);
+    void deleteByIdAndUserId(String id, String userId);
 }

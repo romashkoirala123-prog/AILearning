@@ -23,7 +23,7 @@ public interface QuizRepository extends MongoRepository<Quiz, String> {
     //completed quizzes
     List<Quiz> findByUserIdAndCompletedAtIsNotNull(String userId);
 
-    // Fetch only score + completedAt (lightweight projection)
+    // Fetch only score and completedAt
     @Query(value = "{'userId': ?0, 'documentId': ?1}", fields = "{'score': 1, 'totalQuestions': 1, 'completedAt': 1}")
     List<Quiz> findScoresByUserIdAndDocumentId(String userId, String documentId);
 

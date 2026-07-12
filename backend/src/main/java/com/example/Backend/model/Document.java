@@ -1,11 +1,11 @@
 package com.example.Backend.model;
 
 
+import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 
 @org.springframework.data.mongodb.core.mapping.Document(collection = "documents")
@@ -16,7 +16,21 @@ import lombok.NoArgsConstructor;
 public class Document {
     @id
     private String id;
+
     private String userID;
-    private String documentId;
+    private String title;
     private String fileName;
+    private String filePath;
+    private String fileSize;
+
+    @Builder.Default
+    private String status = "processing";
+    private String extractedText;
+    private LocalDateTime lastAccessed;
+
+    @CreatedDate
+    private LocalDateTime created;
+
+    @LastModifiedDate
+    private LocalDateTime lastModified;
 }
