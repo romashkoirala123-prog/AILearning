@@ -5,7 +5,6 @@ import com.example.Backend.model.Quiz;
 import com.example.Backend.model.Questions;
 import com.example.Backend.repository.QuizRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;

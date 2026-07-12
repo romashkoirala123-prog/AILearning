@@ -1,4 +1,4 @@
-package com.example.Backend.model;
+/*package com.example.Backend.model;
 
 
 import lombok.*;
@@ -34,3 +34,4 @@ public class Document {
     @LastModifiedDate
     private LocalDateTime lastModified;
 }
+*/

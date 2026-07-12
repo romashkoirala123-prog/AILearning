@@ -1,4 +1,4 @@
-package com.example.Backend.repository;
+/*package com.example.Backend.repository;
 
 import com.example.Backend.model.Document;
 
@@ -15,3 +15,4 @@ public interface DocumentRepository extends MongoRepository<Document,String> {
     boolean existsByUserIdAndDocumentId(String userId, String documentId);
     void deleteByIdAndUserId(String id, String userId);
 }
+*/
