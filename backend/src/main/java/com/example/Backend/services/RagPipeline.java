@@ -33,4 +33,4 @@ public class RagPipeline {
         //it calls embedding model converts test chunks to vectors and stores
         vectorStore.accept(chunkedDocuments);
     }
-}
+} //all
