@@ -1,7 +1,7 @@
 package com.example.Backend.config;
 
 import com.example.Backend.services.Userservice;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,13 +22,13 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class Securityconfig {
 
-    @Autowired
-    private Userservice userservice;
+    private final Userservice userservice;
 
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig) throws Exception {
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig)  {
         return authConfig.getAuthenticationManager();
     }
 
@@ -46,7 +46,7 @@ public class Securityconfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration Configuration = new CorsConfiguration();
-        Configuration.setAllowedOrigins(List.of("**"));
+        Configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         Configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         Configuration.setAllowedHeaders(List.of("*"));
         Configuration.setAllowCredentials(true);
