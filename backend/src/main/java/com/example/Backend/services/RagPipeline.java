@@ -3,7 +3,6 @@ package com.example.Backend.services;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
