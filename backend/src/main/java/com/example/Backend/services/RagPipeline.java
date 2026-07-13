@@ -1,4 +1,4 @@
-package com.example.Backend.services;
+/*package com.example.Backend.services;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class RagPipeline {
 
     @PostConstruct  //Auto start on startup
     public void runPipeline() {
-        /* reads documents: parses provided material which turns raw text into spring AI document object*/
+        // reads documents: parses provided material which turns raw text into spring AI document object
 
         PagePdfDocumentReader pdfReader = new PagePdfDocumentReader("documents/Chemistry-XII-2077-full-book.pdf",PdfDocumentReaderConfig.defaultConfig());
         List<Document> extractedDocuments = pdfReader.read();
@@ -30,4 +30,4 @@ public class RagPipeline {
         //it calls embedding model converts test chunks to vectors and stores
         vectorStore.accept(chunkedDocuments);
     }
-}
+}*/
