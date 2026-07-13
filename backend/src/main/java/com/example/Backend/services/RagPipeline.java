@@ -20,18 +20,18 @@ public class RagPipeline {
 
     private Resource pdfResource;
 
-    @PostConstruct
+    @PostConstruct  //Auto start on startup
     public void runPipeline() {
-        System.out.println("RagPipeline started");
+        /* reads documents: parses provided material which turns raw text into spring AI document object*/
+
         PagePdfDocumentReader pdfReader = new PagePdfDocumentReader("documents/Chemistry-XII-2077-full-book.pdf",PdfDocumentReaderConfig.defaultConfig());
         List<Document> extractedDocuments = pdfReader.read();
-        System.out.println("Extraction complete.");
 
+        //turns large chunks of data into smaller block of tokens ie. large pdf-> text Chunks -> smaller text chunks
         TokenTextSplitter transformer = TokenTextSplitter.builder().build();
         List<Document> chunkedDocuments = transformer.apply(extractedDocuments);
-        System.out.println("Transformation complete. Created " + chunkedDocuments.size() + " chunks.");
 
+        //it calls embedding model converts test chunks to vectors and stores
         vectorStore.accept(chunkedDocuments);
-        System.out.println("Load complete. Data is ready for RAG!");
     }
 }

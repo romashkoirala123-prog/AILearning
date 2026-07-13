@@ -8,7 +8,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class VectorConfig {
-
+    /*
+    * SimpleVectorStore is an in-memory dataabase provided by spring AI
+    * it takes embedding model as every document is inserted in it  calculate the vectors
+    * and stores them
+    * */
     @Bean
     public VectorStore  vectorStore(EmbeddingModel embeddingModel) {
         return SimpleVectorStore.builder(embeddingModel).build();
