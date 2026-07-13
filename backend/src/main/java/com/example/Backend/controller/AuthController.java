@@ -12,7 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
-@RestController("/api/auth")
+@RestController
+@RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     private  userRepository userRepo;

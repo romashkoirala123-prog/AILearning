@@ -46,8 +46,8 @@ public class Securityconfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration Configuration = new CorsConfiguration();
-        Configuration.setAllowedOrigins(List.of("http://localhost:5173"));
-        Configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        Configuration.setAllowedOrigins(List.of("**"));
+        Configuration.setAllowedMethods(List.of("GET", "POST"));
         Configuration.setAllowedHeaders(List.of("*"));
         Configuration.setAllowCredentials(true);
 
@@ -64,6 +64,7 @@ public class Securityconfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/api/auth/**").permitAll();
+                    registry.requestMatchers("/api/ai/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .build();
