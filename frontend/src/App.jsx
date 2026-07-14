@@ -11,12 +11,12 @@ import FlashcardPage from "./pages/Flashcards/FlashcardPage";
 import QuizTakePage from "./pages/Quiz/QuizTakePage";
 import QuizResultPage from "./pages/Quiz/QuizResultPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import { useAuth } from './context/AuthContext.jsx';
 
 
 const App = () => {
-  const isAuthenticated = false
-  const loading = false
-  
+  const {isAuthenticated, loading} = useAuth()
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
@@ -27,7 +27,8 @@ const App = () => {
   return (
       <Router>
         <Routes>
-          <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />}/> 
+          <Route path="/" element={isAuthenticated ? (<Navigate to="/dashboard" replace />) : (<Navigate to="/login" replace />)}/> 
+fastfetch
           <Route path="/login" element={<LoginPage />} /> 
           <Route path="/register" element={<RegisterPage />} /> 
           
