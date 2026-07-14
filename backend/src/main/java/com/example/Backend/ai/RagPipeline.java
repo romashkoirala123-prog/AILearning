@@ -1,4 +1,4 @@
-/*package com.example.Backend.services;
+/*package com.example.Backend.ai;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -30,4 +30,5 @@ public class RagPipeline {
         //it calls embedding model converts test chunks to vectors and stores
         vectorStore.accept(chunkedDocuments);
     }
-}*/
+}
+*/
