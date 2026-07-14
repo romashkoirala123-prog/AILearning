@@ -1,4 +1,4 @@
-/*package com.example.Backend.ai;
+package com.example.Backend.ai;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -31,4 +31,3 @@ public class RagPipeline {
         vectorStore.accept(chunkedDocuments);
     }
 }
-*/
