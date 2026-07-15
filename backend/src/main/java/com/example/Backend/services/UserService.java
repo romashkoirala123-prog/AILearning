@@ -2,34 +2,35 @@ package com.example.Backend.services;
 
 import com.example.Backend.model.SUser;
 import com.example.Backend.repository.userRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jspecify.annotations.NullMarked;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.Collections;
+
 
 @Service
 @RequiredArgsConstructor
-public class Userservice implements UserDetailsService {
+public class UserService implements UserDetailsService {
 
     private final userRepository userRepo;
 
     @Override
+    @NullMarked
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<SUser> user=userRepo.findByUsername(username);
-        if(user.isPresent()){
-            var Obj=user.get();
+        SUser user=userRepo.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException(username));
+
             return User.builder()
-                    .username(Obj.getUsername())
-                    .password(Obj.getPassword())
+                    .username(user.getUsername())
+                    .password(user.getPassword())
+                    .authorities(Collections.emptyList())
                     .build();
-        }
-        else{throw new UsernameNotFoundException(username);}
+
     }
 }
 
