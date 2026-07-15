@@ -1,5 +1,6 @@
 package com.example.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,10 @@ public class answer {
     private Boolean isCorrect;
     @NotBlank
     private String selectedAnswer;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Builder.Default
     private LocalDateTime answeredAt = LocalDateTime.now();
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Builder.Default
     private Difficulty difficulty = Difficulty.MEDIUM;
 }

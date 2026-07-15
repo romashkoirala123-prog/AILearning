@@ -6,7 +6,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @Service
 public class FlashcardGenService {

@@ -12,7 +12,6 @@ import java.util.List;
 public class FlashcardService {
 
     private final FlashcardRepository flashcardRepository;
-    private final MongoTemplate mongoTemplate;
 
     public Flashcard createFlashcard(String userId, String documentId, List<Flashcard.Card> cards) {
         Flashcard flashcard = Flashcard.builder()

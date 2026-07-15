@@ -1,5 +1,6 @@
 package com.example.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -35,13 +36,13 @@ public class Quiz {
 
     @NotNull
     private Integer totalQuestions;
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @Builder.Default
     private LocalDateTime completedAt = null;
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @CreatedDate
     private LocalDateTime createdAt;
-
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
