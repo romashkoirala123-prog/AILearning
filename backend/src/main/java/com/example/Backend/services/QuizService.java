@@ -1,8 +1,8 @@
 package com.example.Backend.services;
 
-import com.example.Backend.model.Answer;
+import com.example.Backend.model.answer;
 import com.example.Backend.model.Quiz;
-import com.example.Backend.model.Questions;
+import com.example.Backend.model.questions;
 import com.example.Backend.repository.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -22,9 +22,11 @@ public class QuizService
     private final QuizRepository quizRepository;
 
     private final MongoTemplate mongoTemplate;
+
+
     //create
     public Quiz createQuiz(String userId, String documentId,
-                           String title, List<Questions> question) {
+                           String title, List<questions> question) {
         Quiz quiz = Quiz.builder()
                 .userId(userId)
                 .documentId(documentId)
@@ -47,7 +49,7 @@ public class QuizService
         return quizRepository.findByUserIdAndDocumentId(userId, documentId);
     }
     //submitting
-    public void submitAnswer(String quizId, Answer answer) {
+    public void submitAnswer(String quizId, answer answer) {
         Query query = new Query(Criteria.where("id").is(quizId));
         Update update = new Update().push("userAnswers", answer);
 

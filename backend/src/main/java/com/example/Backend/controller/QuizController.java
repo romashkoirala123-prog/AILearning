@@ -1,8 +1,8 @@
 
 package com.example.Backend.controller;
 
-import com.example.Backend.model.Answer;
-import com.example.Backend.model.Questions;
+import com.example.Backend.model.answer;
+import com.example.Backend.model.questions;
 import com.example.Backend.model.Quiz;
 import com.example.Backend.services.QuizService;
 import jakarta.validation.Valid;
@@ -79,7 +79,7 @@ public class QuizController {
             List<Map<String, Object>> questionResults = quiz.getQuestions().stream()
                     .map(q -> {
                         int idx = quiz.getQuestions().indexOf(q);
-                        Answer userAnswer = quiz.getUserAnswers().stream()
+                        answer userAnswer = quiz.getUserAnswers().stream()
                                 .filter(a -> a.getQuestionIndex() == idx)
                                 .findFirst().orElse(null);
 
@@ -140,10 +140,10 @@ public class QuizController {
             if (alreadyAnswered)
                 return bad400("Question " + idx + " has already been answered");
 
-            Questions question = quiz.getQuestions().get(idx);
+            questions question = quiz.getQuestions().get(idx);
             boolean isCorrect = req.getSelectedAnswer().equals(question.getCorrectAnswer());
 
-            Answer answer = Answer.builder()
+            answer answer = com.example.Backend.model.answer.builder()
                     .questionIndex(idx)
                     .selectedAnswer(req.getSelectedAnswer())
                     .isCorrect(isCorrect)

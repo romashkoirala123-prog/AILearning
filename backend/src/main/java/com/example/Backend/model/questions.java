@@ -10,8 +10,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Questions {
-    @Size(min=14,max=4,message="Must have 4 option")
+public class questions {
+    @Size(min=4,max=4,message="Must have 4 option")
     private List<String> options;
     @NotBlank
     private String question;

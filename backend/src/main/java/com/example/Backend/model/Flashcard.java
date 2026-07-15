@@ -1,11 +1,11 @@
 package com.example.Backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,11 +45,14 @@ public class Flashcard {
         @Builder.Default
         private Difficulty difficulty = Difficulty.MEDIUM;
 
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         private LocalDateTime lastReviewed;
 
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         @Builder.Default
         private Integer reviewCount = 0;
 
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
         @Builder.Default
         private Boolean isStarred = false;
     }

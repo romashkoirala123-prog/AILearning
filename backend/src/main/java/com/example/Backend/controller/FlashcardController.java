@@ -1,13 +1,11 @@
 package com.example.Backend.controller;
 
+import com.example.Backend.ai.FlashcardGenService;
 import com.example.Backend.model.Flashcard;
 import com.example.Backend.services.FlashcardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/flashcards")
 @RequiredArgsConstructor
 public class FlashcardController {
-
+    private final FlashcardGenService flashcardGenService;
     private final FlashcardService flashcardService;
     private final MongoTemplate mongoTemplate;
 
@@ -54,30 +52,31 @@ public class FlashcardController {
     }
 
 
-    @PostMapping("/document/{documentId}/cards/{cardIndex}/review")
-    public ResponseEntity<ApiResponse<Flashcard>> reviewCard(
+    @PostMapping("/document/{documentId}/generate")
+    public ResponseEntity<ApiResponse<Flashcard>> generateAndSaveFlashcards(
             @PathVariable String documentId,
-            @PathVariable int cardIndex,
+            @RequestBody GenerateRequest request,
+            @RequestParam(defaultValue = "5") int count,
             @AuthenticationPrincipal UserDetails user) {
         try {
             String uid = userId(user);
-            Flashcard set = flashcardService.getByUserAndDocument(uid, documentId);
 
-            if (cardIndex < 0 || cardIndex >= set.getCards().size())
-                return bad400("cardIndex out of range");
+            // 1. Generate cars
+            List<Flashcard.Card> generatedCards = flashcardGenService.generateCards(request.sourceText(), count);
 
-            Query query = new Query(
-                    Criteria.where("userId").is(uid).and("documentId").is(documentId));
-            Update update = new Update()
-                    .inc("cards." + cardIndex + ".reviewCount", 1)
-                    .set("cards." + cardIndex + ".lastReviewed", LocalDateTime.now());
-            mongoTemplate.updateFirst(query, update, Flashcard.class);
+            if (generatedCards == null || generatedCards.isEmpty()) {
+                return ResponseEntity.status(500)
+                        .body(ApiResponse.error(500, "AI failed to generate flashcards or returned invalid format."));
+            }
 
-            Flashcard updated = flashcardService.getByUserAndDocument(uid, documentId);
-            return ResponseEntity.ok(ApiResponse.ok(updated, "Card reviewed successfully"));
-        } catch (RuntimeException e) {
-            if (notFound(e)) return notFound404("Flashcard set not found");
-            log.error("reviewCard: {}", e.getMessage());
+            // 2. Save directly to MongoDB
+            Flashcard savedFlashcard = flashcardService.createFlashcard(uid, documentId, generatedCards);
+
+            // 3. Return your standard API Response
+            return ResponseEntity.ok(ApiResponse.ok(savedFlashcard, "Flashcards generated successfully"));
+
+        } catch (Exception e) {
+            log.error("generateAndSaveFlashcards: {}", e.getMessage());
             return ResponseEntity.status(500).body(ApiResponse.error(500, e.getMessage()));
         }
     }
@@ -139,4 +138,5 @@ public class FlashcardController {
     private <T> ResponseEntity<ApiResponse<T>> bad400(String msg) {
         return ResponseEntity.status(400).body(ApiResponse.error(400, msg));
     }
+    public record GenerateRequest(String sourceText) {}
 }

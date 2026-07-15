@@ -37,3 +37,5 @@ out/
 .vscode/
 # Ignore all .env files
 .env
+# Ignore Spring Boot application configuration
+**/src/main/resources/application.properties
