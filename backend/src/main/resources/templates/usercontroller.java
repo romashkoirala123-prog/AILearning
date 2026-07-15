@@ -67,5 +67,5 @@ public class usercontroller {
         return "welcome";
     }
 }
-
+public DocumentIngestionService(VectorStore vectorStore) {this.vectorStore = vectorStore;}
 */
