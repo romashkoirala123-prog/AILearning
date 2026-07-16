@@ -1,6 +1,7 @@
 package com.example.Backend.config;
 
-import com.example.Backend.services.Userservice;
+import com.example.Backend.services.UserService;
+import com.example.Backend.util.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -23,10 +25,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class Securityconfig {
+public class SecurityConfig {
 
-    private final Userservice userservice;
-
+    private final UserService userservice;
+    private final JwtAuthFilter jwtAuthFilter;
     @Bean
     public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig)  {
         return authConfig.getAuthenticationManager();
@@ -64,11 +66,11 @@ public class Securityconfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/api/auth/**").permitAll();
-                    registry.requestMatchers("/api/flashcards/**").permitAll();
-                    //registry.requestMatchers("/api/ai/**").authenticated();
+                    registry.requestMatchers("/api/flashcards/**").authenticated();
                     registry.requestMatchers("/api/chat/**").permitAll();
                     registry.anyRequest().authenticated();
                 })
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
