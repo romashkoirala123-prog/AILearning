@@ -1,25 +1,32 @@
-export const Base_URL = 'http://localhost:5173/';
+export const Base_URL = "http://localhost:8080";
 
 export const API_PATHS = {
   AUTH: {
-    LOGIN: "/auth/login",
-    REGISTER: "/auth/register",
-    GET_PROFILE: "/auth/profile",
-    UPDATE_PROFILE: "/auth/profile",
-    CHANGE_PASSWORD: "/auth/change-password",
+    LOGIN: "/api/auth/login",
+    REGISTER: "/api/auth/register",
+    GET_PROFILE: "/api/auth/profile",
+    UPDATE_PROFILE: "/api/auth/profile",
+    CHANGE_PASSWORD: "/api/auth/change-password",
   },
-  
+
+  DOCUMENTS: {
+    GET_DOCUMENTS: "/api/documents",
+    UPLOAD: "/api/documents/upload",
+    DELETE_DOCUMENT: (id) => `/api/documents/${id}`,
+    GET_DOCUMENT_BY_ID: (id) => `/api/documents/${id}`,
+  },
+
   AI: {
-    GENERATE_FLASHCARDS: '/api/ai/',
-    GENERATE_QUIZ: '/api/ai/',
-    GENERATE_SUMMARY: '/api/ai/',
-    CHAT: '/api/ai/',
-    EXPLAIN_CONCEPT: '/api/ai/explain-concept', 
+    GENERATE_FLASHCARDS: "/api/ai/flashcards",
+    GENERATE_QUIZ: "/api/ai/quiz",
+    GENERATE_SUMMARY: "/api/ai/summary",
+    CHAT: "/api/ai/chat",
+    EXPLAIN_CONCEPT: "/api/ai/explain-concept",
     GET_CHAT_HISTORY: (documentId) => `/api/ai/chat-history/${documentId}`,
   },
 
   FLASHCARDS: {
-    GET_ALL_FLASHCARD_SETS: '/api/flashcards',
+    GET_ALL_FLASHCARD_SETS: "/api/flashcards",
     GET_FLASHCARDS_FOR_DOC: (documentId) => `/api/flashcards/${documentId}`,
     REVIEW_FLASHCARD: (cardId) => `/api/flashcards/${cardId}/review`,
     TOGGLE_STAR: (cardId) => `/api/flashcards/${cardId}/star`,
