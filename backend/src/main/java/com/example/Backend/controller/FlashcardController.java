@@ -21,7 +21,6 @@ import java.util.List;
 public class FlashcardController {
     private final FlashcardGenService flashcardGenService;
     private final FlashcardService flashcardService;
-    private final MongoTemplate mongoTemplate;
 
 
     @GetMapping

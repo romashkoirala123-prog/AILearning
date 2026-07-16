@@ -1,6 +1,8 @@
 package com.example.Backend.ai;
 
 import com.example.Backend.model.Flashcard;
+import com.example.Backend.services.FlashcardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -11,9 +13,11 @@ import java.util.List;
 public class FlashcardGenService {
 
     private final ChatClient chatClient;
+    private final FlashcardService flashcardService;
 
-    public FlashcardGenService(ChatClient.Builder chatClientBuilder) {
-        this.chatClient = chatClientBuilder.build();
+    public FlashcardGenService(ChatClient.Builder chatClient, FlashcardService flashcardService) {
+        this.chatClient = chatClient.build();
+        this.flashcardService = flashcardService;
     }
 
     public List<Flashcard.Card> generateCards(String context, int count) {
@@ -34,4 +38,9 @@ public class FlashcardGenService {
                     .call()
                     .entity(new ParameterizedTypeReference<List<Flashcard.Card>>() {});
                     }
+    //Saves the genreated flashcard
+    public Flashcard generateAndSave(String userId, String documentId, String context, int count) {
+        List<Flashcard.Card> cards = generateCards(context, count);
+        return flashcardService.createFlashcard(userId, documentId, cards);
+    }
 }

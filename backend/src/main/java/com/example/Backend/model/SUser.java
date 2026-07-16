@@ -18,7 +18,6 @@ public class SUser {
     private String email;
     private String password;
 
-
     public SUser() {
     }
 }

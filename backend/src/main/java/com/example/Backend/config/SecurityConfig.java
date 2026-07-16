@@ -5,6 +5,7 @@ import com.example.Backend.util.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,8 +30,9 @@ public class SecurityConfig {
 
     private final UserService userservice;
     private final JwtAuthFilter jwtAuthFilter;
+
     @Bean
-    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig)  {
+    public AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
@@ -40,6 +42,7 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -47,29 +50,29 @@ public class SecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration Configuration = new CorsConfiguration();
-        Configuration.setAllowedOrigins(List.of("http://localhost:5173"));
-        Configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        Configuration.setAllowedHeaders(List.of("*"));
-        Configuration.setAllowCredentials(true);
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", Configuration);
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
 
-
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/api/auth/**").permitAll();
-                    registry.requestMatchers("/api/flashcards/**").authenticated();
-                    registry.requestMatchers("/api/chat/**").permitAll();
-                    registry.anyRequest().authenticated();
-                })
+                .authorizeHttpRequests(registry -> registry
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/flashcards/**").authenticated()
+                        .requestMatchers("/api/chat/**").authenticated()
+                        .anyRequest().authenticated()
+                )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

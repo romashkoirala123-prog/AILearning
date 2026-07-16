@@ -36,6 +36,19 @@ public class FlashcardService {
         flashcard.setCards(cards);
         return flashcardRepository.save(flashcard);
     }
+    //trying to create toggle
+    public Flashcard toggleStar(String userId, String documentId, int cardIndex) {
+        Flashcard flashcard = getByUserAndDocument(userId, documentId);
+        List<Flashcard.Card> cards = flashcard.getCards();
+
+        if (cardIndex < 0||cardIndex >= cards.size()) {
+            throw new RuntimeException("Invalid card index");
+        }
+        Flashcard.Card card = cards.get(cardIndex);
+        boolean newStarred=!Boolean.TRUE.equals(card.getIsStarred());
+        card.setIsStarred(newStarred);
+        return flashcardRepository.save(flashcard);
+    }
 
     public void delete(String userId, String documentId) {
         flashcardRepository.deleteByUserIdAndDocumentId(userId, documentId);
